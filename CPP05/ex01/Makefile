@@ -6,17 +6,18 @@
 #    By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:52:25 by sdemaude          #+#    #+#              #
-#    Updated: 2024/08/01 16:08:33 by sdemaude         ###   ########.fr        #
+#    Updated: 2024/08/01 16:15:50 by sdemaude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ex00 
+NAME = ex01 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -g -std=c++98
 OBJ = $(SRC:.cpp=.o)
 
 SRC = main.cpp\
-	  Bureaucrat.cpp
+	  Bureaucrat.cpp\
+	  Form.cpp
 
 all : $(NAME)
 

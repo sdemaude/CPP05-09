@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:14:28 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/01 16:41:46 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/02 13:59:45 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,27 @@
 #define GRADE_MAX 1
 #define GRADE_MIN 150
 
+class Bureaucrat;
+
 class Form
 {
 	private:
 		std::string const	name;
 		bool				isSigned;
-		int	const			gradeToSign;
-		int const			gradeToExec;
+		int					gradeToSign;
+		int					gradeToExec;
 
 	public:
 		Form();
-		//Form(std::string const &name, int grade);
+		Form(std::string const &name, int gradeToSign, int gradeToExec);
 		Form(Form const &other);
 		~Form();
 
 		std::string const	&getName() const;
-		bool const			&getIsSigned() const;
-		int const			&getGradeToSign() const;
-		int const			&getGradeToExec() const;
-		void				incrementGrade();
-		void				decrementGrade();
+		bool				getIsSigned() const;
+		int					getGradeToSign() const;
+		int					getGradeToExec() const;
+		void				beSigned(Bureaucrat const &other);
 
 		Form &operator=(Form const &other);
 

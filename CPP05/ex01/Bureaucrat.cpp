@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 12:42:55 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/01 16:09:57 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:43:44 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,24 @@ void	Bureaucrat::decrementGrade()
 	if (this->grade + 1 > GRADE_MIN)
 		throw (GradeTooLowException());
 	this->grade++;
+}
+
+void	Bureaucrat::signForm(Form &form)
+{
+	if (form.getIsSigned())
+	{
+		std::cout << this->getName() << " couldn’t sign " << form.getName() << " because it's already signed" << std::endl;
+		return ;
+	}
+	try
+	{
+		form.beSigned(*this);
+		std::cout << this->getName() << " signed " << form.getName() << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << this->getName() << " couldn’t sign " << form.getName() << " because grade is too low" << std::endl;
+	}
 }
 
 Bureaucrat &Bureaucrat::operator=(Bureaucrat const &other)

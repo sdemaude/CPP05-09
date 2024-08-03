@@ -6,7 +6,7 @@
 #    By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 16:52:25 by sdemaude          #+#    #+#              #
-#    Updated: 2024/08/02 15:47:23 by sdemaude         ###   ########.fr        #
+#    Updated: 2024/08/03 13:11:53 by sdemaude         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,10 @@ OBJ = $(SRC:.cpp=.o)
 
 SRC = main.cpp\
 	  Bureaucrat.cpp\
-	  Form.cpp
+	  AForm.cpp\
+	  ShrubberyCreationForm.cpp\
+	  RobotomyRequestForm.cpp\
+	  PresidentialPardonForm.cpp
 
 all : $(NAME)
 

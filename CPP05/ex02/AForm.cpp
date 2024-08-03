@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AForm.cpp                                           :+:      :+:    :+:   */
+/*   AForm.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:14:29 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/02 13:59:39 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/03 12:03:13 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,11 @@ void AForm::beSigned(Bureaucrat const &other)
 	this->isSigned = true;
 }
 
+void AForm::beExecuted(Bureaucrat const &other) const
+{
+	(void)other;
+}
+
 AForm &AForm::operator=(AForm const &other)
 {
 	this->gradeToSign = other.getGradeToSign();
@@ -90,6 +95,11 @@ const char *AForm::GradeTooHighException::what() const throw()
 const char *AForm::GradeTooLowException::what() const throw()
 {
 	return ("Grade too Low !!");
+}
+
+const char *AForm::FormNotSignedException::what() const throw()
+{
+	return ("Form's not signed !!");
 }
 
 std::ostream &operator<<(std::ostream &flux, AForm const &other)

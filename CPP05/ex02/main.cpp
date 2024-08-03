@@ -6,60 +6,48 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:03:44 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/02 13:53:37 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/03 13:31:38 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
-int	main(void)
+int main(void)
 {
-	Bureaucrat	astride("Astride", 5);
-	Form		dumbForm1("dumb form", 4, 4);
+	Bureaucrat				steve("Steve", 3);
+	Bureaucrat				john("John", 148);
+	RobotomyRequestForm		rr("rr");
+	PresidentialPardonForm	pp("pp");
+	ShrubberyCreationForm	sc("sc");
 
-	try
-	{
-		std::cout << astride << ", try to sign " << dumbForm1.getName()
-			<< std::endl;
-		astride.signForm(dumbForm1);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
+	std::cout << std::endl;
+	steve.executeForm(rr);
+	steve.executeForm(pp);
+	steve.executeForm(sc);
 
-	try
-	{
-		std::cout << "Try to increment " << astride << std::endl;
-		astride.incrementGrade();
-	}
-	catch(const std::exception &e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
+	std::cout << std::endl;
+	john.signForm(rr);
+	john.signForm(pp);
+	john.signForm(sc);
 
-	try
-	{
-		std::cout << astride << ", try to sign " << dumbForm1.getName()
-			<< std::endl;
-		astride.signForm(dumbForm1);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
+	std::cout << std::endl;
+	steve.signForm(rr);
+	steve.signForm(pp);
+	steve.signForm(sc);
 
-	try
-	{
-		std::cout << astride << ", try to sign " << dumbForm1.getName()
-			<< std::endl;
-		astride.signForm(dumbForm1);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
+	std::cout << std::endl;
+	john.executeForm(rr);
+	john.executeForm(pp);
+	john.executeForm(sc);
 
+	std::cout << std::endl;
+	steve.executeForm(rr);
+	steve.executeForm(pp);
+	steve.executeForm(sc);
+
+	std::cout << std::endl;
 	return (0);
 }

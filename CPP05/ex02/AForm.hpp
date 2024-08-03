@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:14:28 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/02 18:12:34 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/03 11:58:13 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ class AForm
 		int					getGradeToSign() const;
 		int					getGradeToExec() const;
 		virtual void		beSigned(Bureaucrat const &other);
-		virtual void		beExecuted(Bureaucrat const &other);
+		virtual void		beExecuted(Bureaucrat const &other) const;
 
 		AForm &operator=(AForm const &other);
 
@@ -52,6 +52,12 @@ class AForm
 		};
 
 		class GradeTooLowException : public std::exception
+		{
+			public :
+				virtual const char *what() const throw();
+		};
+
+		class FormNotSignedException : public std::exception
 		{
 			public :
 				virtual const char *what() const throw();

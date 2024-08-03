@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 12:31:32 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/02 15:53:32 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/03 11:58:48 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #define GRADE_MAX 1
 #define GRADE_MIN 150
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -38,7 +38,8 @@ class Bureaucrat
 		int const			&getGrade() const;
 		void				incrementGrade();
 		void				decrementGrade();
-		void				signForm(Form &form);
+		void				signForm(AForm &form);
+		void				executeForm(AForm const &form);
 
 		Bureaucrat &operator=(Bureaucrat const &other);
 

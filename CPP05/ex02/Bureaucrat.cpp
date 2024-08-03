@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 12:42:55 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/02 15:46:46 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/03 11:59:53 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	Bureaucrat::decrementGrade()
 	this->grade++;
 }
 
-void	Bureaucrat::signForm(Form &form)
+void	Bureaucrat::signForm(AForm &form)
 {
 	if (form.getIsSigned())
 	{
@@ -76,6 +76,19 @@ void	Bureaucrat::signForm(Form &form)
 	catch (std::exception &e)
 	{
 		std::cout << this->getName() << " couldn’t sign " << form.getName() << " because grade is too low" << std::endl;
+	}
+}
+
+void	Bureaucrat::executeForm(AForm const &form)
+{
+	try
+	{
+		form.beExecuted(*this);
+		std::cout << this->name << " executed " << form.getName() << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;	
 	}
 }
 

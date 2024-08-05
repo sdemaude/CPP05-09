@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 12:58:33 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/03 15:12:27 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/03 15:36:36 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void RobotomyRequestForm::beExecuted(Bureaucrat const &other) const
 		throw (FormNotSignedException());
 
 	if (rand() % 2)
-		std::cout << this->target << " has been robotomized successfully !" << std::endl;
+		std::cout << "**DRlllrlrllr** " << this->target << " has been robotomized successfully !" << std::endl;
 	else
 		std::cout << "Failed to robotomize " << this->target << " !" << std::endl;
 }

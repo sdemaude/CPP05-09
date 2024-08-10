@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:14:29 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/02 13:59:39 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/10 12:01:22 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ Form::Form() : name("default"), isSigned(false), gradeToSign(GRADE_MAX), gradeTo
 	std::cout << "[Form] Default constructor has been called" << std::endl;
 }
 
-Form::Form(std::string const &name, int gradeToSign, int gradeToExec) : name(name), isSigned(false)
+Form::Form(std::string const &name, int gradeToSign, int gradeToExec) : name(name),
+																		isSigned(false),
+																		gradeToSign(gradeToSign),
+																		gradeToExec(gradeToExec)
 {
 	std::cout << "[Form] Special constructor has been called" << std::endl;
 
@@ -25,13 +28,11 @@ Form::Form(std::string const &name, int gradeToSign, int gradeToExec) : name(nam
 		throw (GradeTooHighException());
 	else if (gradeToSign > GRADE_MIN)
 		throw (GradeTooLowException());
-	this->gradeToSign = gradeToSign;
 
 	if (gradeToExec < GRADE_MAX)
 		throw (GradeTooHighException());
 	else if (gradeToExec > GRADE_MIN)
 		throw (GradeTooLowException());
-	this->gradeToExec = gradeToExec;
 }
 
 Form::Form(Form const &other) : name(other.name),
@@ -76,8 +77,6 @@ void Form::beSigned(Bureaucrat const &other)
 
 Form &Form::operator=(Form const &other)
 {
-	this->gradeToSign = other.getGradeToSign();
-	this->gradeToExec = other.getGradeToExec();
 	this->isSigned = other.getIsSigned();
 	return (*this);
 }

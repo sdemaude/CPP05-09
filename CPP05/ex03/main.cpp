@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:03:44 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/03 15:15:24 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/10 13:48:22 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int main(void)
 	AForm		*sc(intern.makeForm("shrubbery creation", "sc"));
 	AForm		*rr(intern.makeForm("robotomy request", "rr"));
 	AForm		*pp(intern.makeForm("presidential pardon", "pp"));
+	AForm		*test(intern.makeForm("presidential pardon", "test"));
 
 	std::cout << std::endl;
 	intern.makeForm("Nothing", "Nothing");
@@ -35,8 +36,12 @@ int main(void)
 
 	std::cout << std::endl;
 	john.executeForm(*sc);
+	std::cout << std::endl;
 	john.executeForm(*rr);
+	std::cout << std::endl;
 	john.executeForm(*pp);
+	std::cout << std::endl;
+	john.executeForm(*test);
 
 	std::cout << std::endl;
 	delete sc;

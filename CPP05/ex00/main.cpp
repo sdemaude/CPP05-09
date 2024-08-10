@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:03:44 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/01 15:27:18 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/10 11:47:58 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,57 @@
 
 int	main(void)
 {
-	Bureaucrat	astride("Astride", 5);
-	Bureaucrat	william;
+	Bureaucrat	gontran("Gontran", 5);
+	Bureaucrat	cunégonde;
 
+	std::cout << std::endl;
 	for (int i = 0; i < 10; i++)
 	{
 		try
 		{
-			std::cout << "Try to increment " << astride << std::endl;
-			astride.incrementGrade();
+			std::cout << "Try to increment " << gontran << std::endl;
+			gontran.incrementGrade();
 		}
 		catch(const std::exception &e)
 		{
 			std::cerr << e.what() << std::endl;
 		}
+		std::cout << std::endl;
 	}
 
+	std::cout << std::endl;
 	try
 	{
-		std::cout << "Try to decrement " << william << std::endl;
-		william.decrementGrade();
+		std::cout << "Try to decrement " << cunégonde << std::endl;
+		cunégonde.decrementGrade();
 	}
 	catch(const std::exception &e)
 	{
 		std::cerr << e.what() << std::endl;
 	}
 
+	std::cout << std::endl;
 	try
 	{
 		std::cout << "Try to initialize dumb bureaucrat" << std::endl;
-		Bureaucrat	dumby("Dumbo", GRADE_MIN + 1);
+		Bureaucrat	dumby("Dumb", GRADE_MIN + 1);
 	}
 	catch(const std::exception &e)
 	{
 		std::cerr << e.what() << '\n';
 	}
 
+	std::cout << std::endl;
 	try
 	{
 		std::cout << "Try to initialize another dumb bureaucrat" << std::endl;
-		Bureaucrat	dumby2("Dumbo", GRADE_MAX - 1);
+		Bureaucrat	dumby2("Dumber", GRADE_MAX - 1);
 	}
 	catch(const std::exception &e)
 	{
 		std::cerr << e.what() << '\n';
 	}
+	std::cout << std::endl;
 
 	return (0);
 }

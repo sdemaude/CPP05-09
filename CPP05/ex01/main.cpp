@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:03:44 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/02 13:53:37 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/10 12:06:24 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,21 @@
 int	main(void)
 {
 	Bureaucrat	astride("Astride", 5);
-	Form		dumbForm1("dumb form", 4, 4);
+	Form		dumbForm("dumb form", 4, 4);
 
+	std::cout << std::endl;
 	try
 	{
-		std::cout << astride << ", try to sign " << dumbForm1.getName()
+		std::cout << astride << ", try to sign " << dumbForm.getName()
 			<< std::endl;
-		astride.signForm(dumbForm1);
+		astride.signForm(dumbForm);
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
 
+	std::cout << std::endl;
 	try
 	{
 		std::cout << "Try to increment " << astride << std::endl;
@@ -39,27 +41,30 @@ int	main(void)
 		std::cerr << e.what() << std::endl;
 	}
 
+	std::cout << std::endl;
 	try
 	{
-		std::cout << astride << ", try to sign " << dumbForm1.getName()
+		std::cout << astride << ", try to sign " << dumbForm.getName()
 			<< std::endl;
-		astride.signForm(dumbForm1);
+		astride.signForm(dumbForm);
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
 
+	std::cout << std::endl;
 	try
 	{
-		std::cout << astride << ", try to sign " << dumbForm1.getName()
+		std::cout << astride << ", try to sign " << dumbForm.getName()
 			<< std::endl;
-		astride.signForm(dumbForm1);
+		astride.signForm(dumbForm);
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
+	std::cout << std::endl;
 
 	return (0);
 }

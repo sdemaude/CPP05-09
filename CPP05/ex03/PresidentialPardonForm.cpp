@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:09:12 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/03 13:30:00 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:06:32 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ std::string const	&PresidentialPardonForm::getTarget() const
 	return (this->target);
 }
 
-void PresidentialPardonForm::beExecuted(Bureaucrat const &other) const
+void PresidentialPardonForm::execute(Bureaucrat const &executor) const
 {
-	if (other.getGrade() > this->getGradeToExec())
+	if (executor.getGrade() > this->getGradeToExec())
 		throw (GradeTooLowException());
 	else if (!this->getIsSigned())
 		throw (FormNotSignedException());

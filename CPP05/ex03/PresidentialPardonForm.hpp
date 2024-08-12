@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 13:08:57 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/03 13:12:16 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:06:41 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class PresidentialPardonForm : public AForm
 		PresidentialPardonForm(PresidentialPardonForm const &other);
 		virtual ~PresidentialPardonForm();
 
-		virtual void		beExecuted(Bureaucrat const &other) const;
+		virtual void		execute(Bureaucrat const &executor) const;
 		std::string const	&getTarget() const;
 		
 		PresidentialPardonForm &operator=(PresidentialPardonForm const &other);

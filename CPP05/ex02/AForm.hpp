@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:14:28 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/03 11:58:13 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:06:12 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ class AForm
 	private:
 		std::string const	name;
 		bool				isSigned;
-		int					gradeToSign;
-		int					gradeToExec;
+		int	const			gradeToSign;
+		int	const			gradeToExec;
 
 	public:
 		AForm();
@@ -40,8 +40,8 @@ class AForm
 		bool				getIsSigned() const;
 		int					getGradeToSign() const;
 		int					getGradeToExec() const;
-		virtual void		beSigned(Bureaucrat const &other);
-		virtual void		beExecuted(Bureaucrat const &other) const;
+		void				beSigned(Bureaucrat const &other);
+		virtual void		execute(Bureaucrat const &executor) const = 0;
 
 		AForm &operator=(AForm const &other);
 

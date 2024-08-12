@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 12:57:05 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/03 13:30:58 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:04:41 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class RobotomyRequestForm : public AForm
 		RobotomyRequestForm(RobotomyRequestForm const &other);
 		virtual ~RobotomyRequestForm();
 
-		virtual void		beExecuted(Bureaucrat const &other) const;
+		virtual void		execute(Bureaucrat const &executor) const;
 		std::string const	&getTarget() const;
 		
 		RobotomyRequestForm &operator=(RobotomyRequestForm const &other);

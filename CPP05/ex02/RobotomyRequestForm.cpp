@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 12:58:33 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/03 15:35:51 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:04:29 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm", 72, 45) , target(NULL)
 {
+	srand(time(NULL));
 	std::cout << "[RobotomyRequestForm] Default constructor has been called" << std::endl;
 }
 
 RobotomyRequestForm::RobotomyRequestForm(std::string const &target) :	AForm("RobotomyRequestForm", 72, 45),
 																			target(target)
 {
+	srand(time(NULL));
 	std::cout << "[RobotomyRequestForm] Target constructor has been called" << std::endl;
 }
 
@@ -41,14 +43,13 @@ std::string const	&RobotomyRequestForm::getTarget() const
 	return (this->target);
 }
 
-void RobotomyRequestForm::beExecuted(Bureaucrat const &other) const
+void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
-	if (other.getGrade() > this->getGradeToExec())
+	if (executor.getGrade() > this->getGradeToExec())
 		throw (GradeTooLowException());
 	else if (!this->getIsSigned())
 		throw (FormNotSignedException());
 
-	srand(time(NULL));
 	if (rand() % 2)
 		std::cout << "**DRlllrlrllr** " << this->target << " has been robotomized successfully !" << std::endl;
 	else

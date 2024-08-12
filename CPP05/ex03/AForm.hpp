@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:14:28 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/03 11:58:13 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:06:03 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ class AForm
 		int					getGradeToSign() const;
 		int					getGradeToExec() const;
 		virtual void		beSigned(Bureaucrat const &other);
-		virtual void		beExecuted(Bureaucrat const &other) const;
+		virtual void		execute(Bureaucrat const &executor) const;
 
 		AForm &operator=(AForm const &other);
 

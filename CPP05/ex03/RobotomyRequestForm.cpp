@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 12:58:33 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/03 15:36:36 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:07:02 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &other) :	AFo
 																					other.getGradeToExec()),
 																					target(other.getTarget())
 {
-	srand(time(NULL));
 	std::cout << "[RobotomyRequestForm] Copy constructor has been called" << std::endl;
 }
 
@@ -44,9 +43,9 @@ std::string const	&RobotomyRequestForm::getTarget() const
 	return (this->target);
 }
 
-void RobotomyRequestForm::beExecuted(Bureaucrat const &other) const
+void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
-	if (other.getGrade() > this->getGradeToExec())
+	if (executor.getGrade() > this->getGradeToExec())
 		throw (GradeTooLowException());
 	else if (!this->getIsSigned())
 		throw (FormNotSignedException());

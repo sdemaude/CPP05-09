@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:14:29 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/03 12:03:13 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:21:09 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,6 @@ void AForm::beSigned(Bureaucrat const &other)
 	if (other.getGrade() > this->gradeToSign)
 		throw (GradeTooLowException());
 	this->isSigned = true;
-}
-
-void AForm::beExecuted(Bureaucrat const &other) const
-{
-	(void)other;
 }
 
 AForm &AForm::operator=(AForm const &other)

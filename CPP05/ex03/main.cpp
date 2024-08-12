@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 14:03:44 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/10 13:48:22 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:20:41 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ int main(void)
 	delete sc;
 	delete rr;
 	delete pp;
+	delete test;
 }

@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:14:28 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/12 15:27:13 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:53:38 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ class AForm
 	private:
 		std::string const	name;
 		bool				isSigned;
-		int					gradeToSign;
-		int					gradeToExec;
+		int	const			gradeToSign;
+		int	const			gradeToExec;
 
 	public:
 		AForm();

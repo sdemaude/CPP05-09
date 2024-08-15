@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 13:40:16 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/14 15:35:32 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:45:26 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ Date	&Date::operator=(Date const &other)
 }
 
 
-bool	Date::operator<(Date const &other)
+bool	Date::operator<(Date const &other) const
 {
 	if (this->tm_year != other.tm_year)
 		return (this->tm_year < other.tm_year);
@@ -91,7 +91,7 @@ bool	Date::operator<(Date const &other)
 	
 }
 
-bool	Date::operator==(Date const &other)
+bool	Date::operator==(Date const &other) const
 {
 	if (this->tm_year != other.tm_year)
 		return (this->tm_year == other.tm_year);

@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 13:23:04 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/14 15:16:06 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:44:55 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ class Date : public std::tm
 
 		Date	&operator=(Date const &other);
 
-		bool	operator<(Date const &other);
-		bool	operator==(Date const &other);
+		bool	operator<(Date const &other) const;
+		bool	operator==(Date const &other) const;
 		
 		class InvalidDateFormat : public std::exception
 		{

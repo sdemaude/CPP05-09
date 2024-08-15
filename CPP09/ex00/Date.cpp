@@ -76,6 +76,7 @@ Date	&Date::operator=(Date const &other)
 	this->tm_wday = other.tm_wday;
 	this->tm_yday = other.tm_yday;
 	this->tm_isdst = other.tm_isdst;
+
 	return (*this);
 }
 

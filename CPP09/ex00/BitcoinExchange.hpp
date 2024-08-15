@@ -13,13 +13,10 @@
 #pragma once
 
 #include <fstream>
-#include <cstdlib>
-#include <cctype>
+#include <iostream>
 #include <map>
 
 #include "Date.hpp"
-
-#define DATA_FILE "data.csv"
 
 class Date;
 
@@ -32,6 +29,9 @@ class BitcoinExchange
 		BitcoinExchange();
 		BitcoinExchange(BitcoinExchange const &other);
 		~BitcoinExchange();
+
+		bool	setData(std::string const &fileName);
+		void	convertValue(std::string const &fileName);
 
 		BitcoinExchange &operator=(BitcoinExchange const &other);
 };

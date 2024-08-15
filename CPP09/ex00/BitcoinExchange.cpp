@@ -12,10 +12,17 @@
 
 #include "BitcoinExchange.hpp"
 
+BitcoinExchange::BitcoinExchange()
+{}
 
-bool	toMap(char const *line, std::map<Date, double> map)
+BitcoinExchange::BitcoinExchange(BitcoinExchange const &other) : data(other.data)
+{}
+
+BitcoinExchange::~BitcoinExchange()
+{}
+
+static bool	toMap(char const *line, std::map<Date, double> &map)
 {
-	bool	correctFile = true;
 	int		i = 0;
 	int		year;
 	int		month;
@@ -25,7 +32,7 @@ bool	toMap(char const *line, std::map<Date, double> map)
 	while(line[i] && !isdigit(line[i]))
 		i++;
 	if (!line[i])
-		return (false);
+		return (true); //old was false
 	year = 0;
 	month = 0;
 	day = 0;
@@ -40,41 +47,114 @@ bool	toMap(char const *line, std::map<Date, double> map)
 		i++;
 	i++;
 	day = atoi(line + i);
-	while (line[i] && line[i] != '|')
-		i++;
-	while(line[i] && (!isdigit(line[i]) && line[i] != '-'))
-		i++;
-	value = strtod(line + i, NULL);
-	while (line[i] && line[i] != '\n')
+	while (line[i] && line[i] != ',')
 		i++;
 	i++;
-	
+	value = strtod(line + i, NULL);
+
 	try
 	{
 		Date inmap(year, month, day);
 		map[inmap] = value;
-		std::cout << "Value at Key " << inmap << " is: " << map.at(inmap) << std::endl; 
+		//std::cout << "Value at Key " << inmap << " is: " << map.at(inmap) << std::endl;
 	}
 	catch (std::exception &e)
 	{
 		std::cout << "Error bad input !" << std::endl;
-		correctFile = false;
+		return (false);
 	}
-	return (correctFile);
+	return (true);
 }
-/*
-	std::ifstream infileDB;
-	//infileDB.open(DATA_FILE);
-	
 
-	std::ifstream input;
-	input.open(argv[1]);
-	if (!input.is_open())
+bool BitcoinExchange::setData(std::string const &fileName)
+{
+	bool	correctFile = true;
+
+	std::ifstream infileDB;
+	infileDB.open(fileName);
+
+	if (!infileDB.is_open())
+	{
 		std::cout << "Could not open database file, check permissions" << std::endl;
-	
+		return (false);
+	}
+
 	std::map<Date, double> map;
 	for (std::string line; std::getline(infileDB, line);)
-		toMap(line.c_str(), map);
+		if (!toMap(line.c_str(), map))
+			correctFile = false;
 
-	input.close();
-*/
+	infileDB.close();
+	return (correctFile);
+}
+
+static bool	getInfo(char const *line, int *year, int *month, int *day, double *amount)
+{
+	int		i = 0;
+
+	(void)year;
+	(void)month;
+	(void)day;
+	(void)amount;
+
+	while (line[i] && !isdigit(line[i]))
+		i++;
+	if (!line[i])
+		return (false);
+
+	*year = atoi(line + i);
+	while (line[i] && line[i] != '-')
+		i++;
+	i++;
+	*month = atoi(line + i);
+	while (line[i] && line[i] != '-')
+		i++;
+	i++;
+	*day = atoi(line + i);
+	while (line[i] && line[i] != '|')
+		i++;
+	while (line[i] && (!isdigit(line[i]) && line[i] != '-'))
+		i++;
+	*amount = strtod(line + i, NULL);
+
+	return (true);
+}
+
+void BitcoinExchange::convertValue(std::string const &fileName)
+{
+	std::ifstream infile;
+	infile.open(fileName);
+	if (!infile.is_open())
+	{
+		std::cout << "Could not open input file, check permissions" << std::endl;
+		return;
+	}
+
+	for (std::string line; std::getline(infile, line);)
+	{
+		try
+		{
+			int		year = 0;
+			int		month = 0;
+			int		day = 0;
+			double	amount = 0;
+
+			getInfo(line.c_str(), &year, &month, &day, &amount);
+			Date date(year, month, day);
+
+			std::cout << date << " => " << amount << " = " << amount * this->data.at(date) << std::endl;
+		}
+		catch (std::exception &e)
+		{
+			std::cout <<  "Error : ..." << e.what() << std::endl;
+		}
+	}
+
+	infile.close();
+}
+
+BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &other)
+{
+	this->data = other.data;
+	return (*this);
+}

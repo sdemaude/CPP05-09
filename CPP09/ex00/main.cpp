@@ -12,6 +12,8 @@
 
 #include "BitcoinExchange.hpp"
 
+#define DATA_FILE "data.csv"
+
 int	main(int argc, char **argv)
 {
 	if (argc != 2)
@@ -21,8 +23,8 @@ int	main(int argc, char **argv)
 	}
 
 	BitcoinExchange converter;
-	//set converter
-	//use it
-
+	if (!converter.setData(DATA_FILE))
+		return (1);
+	converter.convertValue(argv[1]);
 	return (0);
 }

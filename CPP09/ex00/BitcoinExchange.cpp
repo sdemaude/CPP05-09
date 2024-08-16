@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 15:48:24 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/16 11:57:44 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/16 14:40:07 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,22 +105,35 @@ static bool	getInfo(char const *line, int *year, int *month, int *day, double *a
 		i++;
 	if (!line[i])
 		return (false);
-
 	*year = atoi(line + i);
-	while (line[i] && line[i] != '-')
+	while (line[i] && isdigit(line[i]))
 		i++;
+	if (line[i] != '-')
+		return (false);
 	i++;
 	*month = atoi(line + i);
-	while (line[i] && line[i] != '-')
+	while (line[i] && isdigit(line[i]))
 		i++;
+	if (line[i] != '-')
+		return (false);
 	i++;
 	*day = atoi(line + i);
-	while (line[i] && line[i] != '|')
+	while (line[i] && (isdigit(line[i]) || isspace(line[i])))
 		i++;
-	while (line[i] && (!isdigit(line[i]) && line[i] != '-'))
+	if (line[i] != '|')
+		return (false);
+	i++;
+	while (line[i] && isspace(line[i]))
 		i++;
 	*amount = strtod(line + i, NULL);
-	
+
+	if (*amount < 0)
+		i++;
+	while (line[i] && (isdigit(line[i]) || line[i] == '.'))
+		i++;
+	if (line[i])
+		throw (Date::InvalidDateFormat());
+
 	if (*amount < 0)
 		throw (BitcoinExchange::NegativeNumber());
 	if (*amount > 1000)

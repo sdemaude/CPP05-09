@@ -6,12 +6,13 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 15:48:26 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/15 18:25:29 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:19:29 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -24,6 +25,7 @@ class BitcoinExchange
 {
 	protected:
 		std::map<Date, float>	data;
+		float	findClosest(Date const &key) const;
 
 	public:
 		BitcoinExchange();
@@ -34,4 +36,15 @@ class BitcoinExchange
 		void	convertValue(std::string const &fileName);
 
 		BitcoinExchange &operator=(BitcoinExchange const &other);
+
+		class NegativeNumber : public std::exception
+		{
+			public :
+				virtual const char *what() const throw();
+		};
+		class TooLargeNumber : public std::exception
+		{
+			public :
+				virtual const char *what() const throw();
+		};
 };

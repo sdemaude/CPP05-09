@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 13:40:16 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/15 16:45:26 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:25:56 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ bool	Date::operator==(Date const &other) const
 
 const char *Date::InvalidDateFormat::what() const throw()
 {
-	return ("Date format not valid !!");
+	return ("bad input => ");
 }
 
 std::ostream &operator<<(std::ostream &flux, Date const &date)

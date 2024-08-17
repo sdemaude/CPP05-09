@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:42:48 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/16 16:31:08 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/17 15:25:17 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static bool	correctLine(std::string const &line)
 int	RPN::computeExpression(std::string const &line)
 {
 	if (line.empty() || !correctLine(line))
-		throw (IncorrectExpression());
+		throw (IncorrectExpression("incorrect input"));
 
 	for (int i = 0; line[i]; i++)
 	{
@@ -50,7 +50,7 @@ int	RPN::computeExpression(std::string const &line)
 		else if (isSymbol(line[i]))
 		{
 			if (this->stack.size() < 2)
-				throw (IncorrectExpression());
+				throw (IncorrectExpression("symbol not expected"));
 
 			int res = 0;
 			int b = this->stack.top();
@@ -77,7 +77,7 @@ int	RPN::computeExpression(std::string const &line)
 				case '/':
 				{
 					if (b == 0)
-						throw (IncorrectExpression());
+						throw (IncorrectExpression("division by zero"));
 					res = a / b;
 					break;
 				}
@@ -87,7 +87,7 @@ int	RPN::computeExpression(std::string const &line)
 	}
 	
 	if (this->stack.size() != 1)
-		throw (IncorrectExpression());
+		throw (IncorrectExpression("too much number"));
 	return (this->stack.top());
 }
 
@@ -97,7 +97,13 @@ RPN	&RPN::operator=(RPN const &other)
 	return (*this);
 }
 
+RPN::IncorrectExpression::IncorrectExpression(std::string const &msg) : msg("Error: " + msg)
+{}
+
+RPN::IncorrectExpression::~IncorrectExpression() throw()
+{}
+
 const char *RPN::IncorrectExpression::what() const throw()
 {
-	return ("Error, invalid expression");
+	return (this->msg.c_str());
 }

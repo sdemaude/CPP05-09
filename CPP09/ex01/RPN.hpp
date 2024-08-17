@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:42:49 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/16 15:34:18 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/17 14:52:57 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ class RPN
 
 		class IncorrectExpression : public std::exception
 		{
+			private:
+				std::string	msg;
+
 			public :
+				IncorrectExpression(std::string const &msg);
+				virtual ~IncorrectExpression() throw();
 				virtual const char *what() const throw();
 		};
 };

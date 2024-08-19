@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 15:48:24 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/16 14:40:07 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/17 14:10:00 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,17 @@ BitcoinExchange::~BitcoinExchange()
 static bool	toMap(char const *line, std::map<Date, float> &map)
 {
 	int		i = 0;
-	int		year;
-	int		month;
-	int		day;
-	double	value;
+	int		year = 0;
+	int		month = 0;
+	int		day = 0;
+	double	value = 0;
 
 	while(line[i] && !isdigit(line[i]))
 		i++;
 	if (!line[i])
 		return (true);
-	year = 0;
-	month = 0;
-	day = 0;
-	value = 0;
 
+	//may have garbage before number
 	year = atoi(line + i);
 	while (line[i] && line[i] != '-')
 		i++;
@@ -97,7 +94,7 @@ static bool digitInString(std::string const &str)
 	return (false);
 }
 
-static bool	getInfo(char const *line, int *year, int *month, int *day, double *amount)
+static bool	getInfo(char const *line, int &year, int &month, int &day, double &amount)
 {
 	int		i = 0;
 
@@ -105,19 +102,19 @@ static bool	getInfo(char const *line, int *year, int *month, int *day, double *a
 		i++;
 	if (!line[i])
 		return (false);
-	*year = atoi(line + i);
+	year = atoi(line + i);
 	while (line[i] && isdigit(line[i]))
 		i++;
 	if (line[i] != '-')
 		return (false);
 	i++;
-	*month = atoi(line + i);
+	month = atoi(line + i);
 	while (line[i] && isdigit(line[i]))
 		i++;
 	if (line[i] != '-')
 		return (false);
 	i++;
-	*day = atoi(line + i);
+	day = atoi(line + i);
 	while (line[i] && (isdigit(line[i]) || isspace(line[i])))
 		i++;
 	if (line[i] != '|')
@@ -125,18 +122,18 @@ static bool	getInfo(char const *line, int *year, int *month, int *day, double *a
 	i++;
 	while (line[i] && isspace(line[i]))
 		i++;
-	*amount = strtod(line + i, NULL);
+	amount = strtod(line + i, NULL);
 
-	if (*amount < 0)
+	if (amount < 0)
 		i++;
 	while (line[i] && (isdigit(line[i]) || line[i] == '.'))
 		i++;
 	if (line[i])
 		throw (Date::InvalidDateFormat());
 
-	if (*amount < 0)
+	if (amount < 0)
 		throw (BitcoinExchange::NegativeNumber());
-	if (*amount > 1000)
+	if (amount > 1000)
 		throw (BitcoinExchange::TooLargeNumber());
 
 	return (true);
@@ -163,22 +160,17 @@ void BitcoinExchange::convertValue(std::string const &fileName)
 			int		day = 0;
 			double	amount = 0;
 
-			getInfo(line.c_str(), &year, &month, &day, &amount);
+			getInfo(line.c_str(), year, month, day, amount);
 			Date date(year, month, day);
 			std::cout << date << " => " << amount << " = " << amount * this->findClosest(date) << std::endl;
 		}
+		catch (Date::InvalidDateFormat &e)
+		{
+			std::cout <<  "Error : " << e.what() << line << std::endl;
+		}
 		catch (std::exception &e)
 		{
-			std::cout <<  "Error : " << e.what();	
-			try 
-			{
-				(void)dynamic_cast<Date::InvalidDateFormat&>(e);
-				std::cout << line << std::endl;
-			}
-			catch (std::exception &)
-			{
-				std::cout << std::endl;
-			}
+			std::cout <<  "Error : " << e.what() << std::endl;
 		}
 	}
 

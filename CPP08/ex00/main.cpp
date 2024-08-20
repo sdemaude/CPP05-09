@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 12:53:23 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/06 13:45:07 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/20 10:05:52 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 
 int main()
 {
-	std::vector<int>	vect(5, 0);
-	std::deque<int>		deq(5, 0);
+	std::vector<int>	vect(5);
+	std::deque<int>		deq(5);
 	std::list<int>		list;
 
 	for (int i = 0; i < 5; i++)
 	{
-		vect[i] = i;
-		deq[i] = i;
+		vect.push_back(i);
+		deq.push_back(i);
 		list.push_back(i);
 	}
 

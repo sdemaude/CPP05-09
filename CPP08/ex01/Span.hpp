@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:10:59 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/08 19:32:52 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/20 10:19:11 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@
 class Span : public std::vector<int>
 {
 	private :
-		unsigned int	N;
+		unsigned	N;
 
 	public :
 		Span();
-		Span(unsigned int N);
+		Span(unsigned N);
 		Span(Span const &other);
 		virtual ~Span();
 
-		void			addNumber(int nb);
-		unsigned int	shortestSpan();
-		unsigned int	longestSpan();
+		void		addNumber(int nb);
+		unsigned	shortestSpan();
+		unsigned	longestSpan();
 
-		Span	&operator=(Span const &other);
+		Span		&operator=(Span const &other);
 
 		template <typename Iterator>
-		void			addRange(Iterator begin, Iterator end);
+		void		addRange(Iterator begin, Iterator end);
 };
 
 template <typename Iterator>

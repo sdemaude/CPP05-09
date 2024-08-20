@@ -6,30 +6,12 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:11:01 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/08 19:35:14 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/20 10:22:38 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "Span.hpp"
-
-/*
-int main()
-{
-	Span sp = Span(5);
-	
-	sp.addNumber(6);
-	sp.addNumber(3);
-	sp.addNumber(17);
-	sp.addNumber(9);
-	sp.addNumber(11);
-	
-	std::cout << sp.shortestSpan() << std::endl;
-	std::cout << sp.longestSpan() << std::endl;
-
-	return 0;
-}
-*/
 
 #define SIZE 10000
 

@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:11:00 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/08 19:02:21 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/20 10:19:20 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ Span::Span() : N(0)
 {
 }
 
-Span::Span(unsigned int N) : N(N)
+Span::Span(unsigned N) : N(N)
 {
 }
 
@@ -35,20 +35,20 @@ void	Span::addNumber(int nb)
 	this->push_back(nb);
 }
 
-unsigned int		Span::shortestSpan()
+unsigned		Span::shortestSpan()
 {
-	unsigned int	minSpan;
+	unsigned	minSpan;
 
 	minSpan = UINT_MAX;
 	if (this->size() < 2)
 		throw (std::out_of_range("No span could be found, not enough numbers"));
 	std::sort(this->begin(), this->end());
 	for (unsigned int i = 1; i < this->size(); i++)
-		minSpan = std::min(minSpan, static_cast<unsigned>(std::abs((*this)[i] - (*this)[i - 1])));
+		minSpan = std::min(minSpan, static_cast<unsigned>((*this)[i] - (*this)[i - 1]));
 	return (minSpan);
 }
 
-unsigned int		Span::longestSpan()
+unsigned		Span::longestSpan()
 {
 	if (this->size() < 2)
 		throw (std::out_of_range("No span could be found, not enough numbers"));

@@ -6,7 +6,7 @@
 /*   By: sdemaude <sdemaude@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:42:41 by sdemaude          #+#    #+#             */
-/*   Updated: 2024/08/23 17:48:06 by sdemaude         ###   ########.fr       */
+/*   Updated: 2024/08/24 12:18:33 by sdemaude         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,58 @@
 
 #define BASE 10
 
-int	*toIntArray(int size, char **argv)
+bool containsDuplicates(std::vector<int> const &vec)
 {
-	int		*array = new int[size];
+	std::set<int>	seen;
+
+	for (std::vector<int>::const_iterator it = vec.begin(); it != vec.end(); ++it)
+	{
+		seen.insert(*it);
+	}
+
+	return false;
+}
+
+void toVector(int size, char **argv, std::vector<int> &vec)
+{
 	char	*endPtr;
 
 	for (int i = 0; i < size; i++)
 	{
-		array[i] = strtol(argv[i], &endPtr, BASE);
-		if (endPtr == argv[i])
+		long	value = strtol(argv[i], &endPtr, BASE);
+		if (endPtr == argv[i] or *endPtr != '\0')
 			throw (std::invalid_argument("Error: Incorrect value passed as input!"));
-		if (array[i] < 0)
+		if (value < 0)
 			throw (std::invalid_argument("Error: Negative value passed as input!"));
+		if (value > INT_MAX)
+			throw (std::invalid_argument("Error: All values must be integers!"));
+		if (std::find(vec.begin(), vec.end(), static_cast<int>(value)) != vec.end())
+			throw (std::invalid_argument("Error: Duplicates found!"));
+		vec.push_back(value);
 	}
-	return (array);
 }
 
-double	getTimeToSort(std::string const &container, int *array)
+double	getTimeToSort(std::string const &container, std::vector<int> const &vec)
 {
 	struct timespec begin, end;
 	clock_gettime(CLOCK_REALTIME, &begin);
 
-	if (container == "list")
-	{
-		(void)array;
-		//to container
-		//call sorting function
-
-	}
-	else if (container == "vector")
-	{
-		//to container
-		//call sorting function
-
-	}
+	PmergeMe merge(container, vec);
+	//merge.sort();
 
 	clock_gettime(CLOCK_REALTIME, &end);
 	long seconds = end.tv_sec - begin.tv_sec;
     long nanoseconds = end.tv_nsec - begin.tv_nsec;
 
     return (static_cast<double>(seconds + nanoseconds*1e-9));
+}
+
+void	displayInfos(int argc, int ETL, int ETV, std::vector<int> const &before)
+{
+	std::cout << "Before: " << before << std::endl;
+	std::cout << "After: " << before << std::endl;
+	std::cout << "Time to process a range of " << argc << " elements with std::list : " << ETL << " s" << std::endl;
+	std::cout << "Time to process a range of " << argc << " elements with std::vector : " << ETV << " s" << std::endl;
 }
 
 int	main(int argc, char **argv)
@@ -64,30 +76,21 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 
-	int *array = NULL;
+	std::vector<int>	vec;
 	try
 	{
-		array = toIntArray(argc--, argv++);
+		toVector(--argc, ++argv, vec);
 	}
 	catch (std::exception &e)
 	{
 		std::cerr << e.what() << std::endl;
-		delete [] array;
 		return (1);
 	}
 
-	//double	elapsedTimeList = getTimeToSort("list");
-	//double	elapsedTimeVect = getTimeToSort("vector");
+	double	elapsedTimeList = getTimeToSort("list", vec);
+	double	elapsedTimeVect = getTimeToSort("vector", vec);
 
-	//display all infos
-	//before and after ?
-	//
-	//std::cout << "Before: " << [3 5 9 7 4] << std::endl;
-	//std::cout << "After: " << [3 4 5 7 9] << std::endl;
-	//std::cout << "Time to process a range of " << argc << " elements with std::list : " << elapsedTimeList << " us" << std::endl;
-	//std::cout << "Time to process a range of " << argc << " elements with std::vector : " << elapsedTimeVect << " us" << std::endl;
+	displayInfos(argc, elapsedTimeList, elapsedTimeVect, vec);
 	
-	delete [] array;
-
 	return (0);
 }

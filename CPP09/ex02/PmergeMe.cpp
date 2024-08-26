@@ -29,9 +29,25 @@ PmergeMe::PmergeMe(PmergeMe const &other) : containerType(other.containerType), 
 PmergeMe::~PmergeMe()
 {}
 
+static void    mergeSortList()
+{}
+
+static void    mergeSortVector()
+{}
+
+static void    insertionSortList()
+{}
+
+static void    insertionSortVector()
+{}
+
 void    PmergeMe::sort()
 {
-    
+    //call to merge sort function (will divide the elements into sorted pairs)
+    //call to insertion sort function on 'b' elements of the pairs (the min ones)
+    //        but changing the range (we know its smaller than its 'a')
+    //if its an 'a' elements just push it at the end
+    //youhou its sorted !
 }
 
 PmergeMe &PmergeMe::operator=(PmergeMe const &other)

@@ -22,6 +22,28 @@ BitcoinExchange::BitcoinExchange(BitcoinExchange const &other) : data(other.data
 BitcoinExchange::~BitcoinExchange()
 {}
 
+static int	getValue(char const *line, int &i, char c)
+{
+	int	value = atoi(line + i);
+	
+	if (c == '-' || c == ',')
+	{
+		for (; isdigit(line[i]); i++);
+		if (line[i] != c)
+			throw (std::invalid_argument(""));
+		i++;
+	}
+	else if (c == '|')
+	{
+		for (; isdigit(line[i]); i++);
+		if (!isspace(line[i]) || line[++i] != '|' || !isspace(line[++i]))
+			throw (std::invalid_argument(""));
+		i++;
+	}
+
+	return (value);
+}
+
 static bool	toMap(char const *line, std::map<Date, float> &map)
 {
 	int		i = 0;
@@ -29,27 +51,25 @@ static bool	toMap(char const *line, std::map<Date, float> &map)
 	int		month = 0;
 	int		day = 0;
 	double	value = 0;
+	char	*endPtr = NULL;
 
-	while(line[i] && !isdigit(line[i]))
-		i++;
+	for (;!isdigit(line[i]); i++);
 	if (!line[i])
 		return (true);
-
-	//may have garbage before number
-	year = atoi(line + i);
-	while (line[i] && line[i] != '-')
-		i++;
-	i++;
-	month = atoi(line + i);
-	while (line[i] && line[i] != '-')
-		i++;
-	i++;
-	day = atoi(line + i);
-	while (line[i] && line[i] != ',')
-		i++;
-	i++;
-	value = strtod(line + i, NULL);
-
+	
+	try
+	{
+		year = getValue(line, i, '-');
+		month = getValue(line, i, '-');	
+		day = getValue(line, i, ',');
+		value = strtod(line + i, &endPtr);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << "Error: Syntax incorrect in .csv file!" << std::endl;
+		return (false);
+	}
+	
 	try
 	{
 		Date inmap(year, month, day);
@@ -57,9 +77,10 @@ static bool	toMap(char const *line, std::map<Date, float> &map)
 	}
 	catch (std::exception &e)
 	{
-		std::cout << "Error bad input !" << std::endl;
+		std::cout << "Error: Incorrect input in .csv file!" << std::endl;
 		return (false);
 	}
+
 	return (true);
 }
 
@@ -97,40 +118,27 @@ static bool digitInString(std::string const &str)
 static bool	getInfo(char const *line, int &year, int &month, int &day, double &amount)
 {
 	int		i = 0;
+	char	*endPtr = NULL;
 
-	while (line[i] && !isdigit(line[i]))
-		i++;
-	if (!line[i])
-		return (false);
-	year = atoi(line + i);
-	while (line[i] && isdigit(line[i]))
-		i++;
-	if (line[i] != '-')
-		return (false);
-	i++;
-	month = atoi(line + i);
-	while (line[i] && isdigit(line[i]))
-		i++;
-	if (line[i] != '-')
-		return (false);
-	i++;
-	day = atoi(line + i);
-	while (line[i] && (isdigit(line[i]) || isspace(line[i])))
-		i++;
-	if (line[i] != '|')
-		return (false);
-	i++;
-	while (line[i] && isspace(line[i]))
-		i++;
-	amount = strtod(line + i, NULL);
-
-	if (amount < 0)
-		i++;
-	while (line[i] && (isdigit(line[i]) || line[i] == '.'))
-		i++;
-	if (line[i])
+	int j;
+	for (j = 0; !isdigit(line[j]); j++)
+	if (!line[j])
+		return (true);
+	
+	try
+	{
+		year = getValue(line, i, '-');
+		month = getValue(line, i, '-');	
+		day = getValue(line, i, '|');
+		amount = strtod(line + i, &endPtr);
+	}
+	catch (std::exception &e)
+	{
 		throw (Date::InvalidDateFormat());
+	}
 
+	if (*endPtr != '\0')
+		throw (Date::InvalidDateFormat());
 	if (amount < 0)
 		throw (BitcoinExchange::NegativeNumber());
 	if (amount > 1000)

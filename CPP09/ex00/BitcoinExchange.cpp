@@ -22,24 +22,31 @@ BitcoinExchange::BitcoinExchange(BitcoinExchange const &other) : data(other.data
 BitcoinExchange::~BitcoinExchange()
 {}
 
-static int	getValue(char const *line, int &i, char c)
+static bool digitInString(std::string const &str)
+{
+	for (size_t i = 0 ; i < str.length(); i++)
+	{
+		if (isdigit(str[i]))
+			return (true);
+	}
+	return (false);
+}
+
+static int	getValue(char const *line, int &i, char c, bool space)
 {
 	int	value = atoi(line + i);
+
+	if (!isdigit(line[i]))
+		throw (std::invalid_argument(NULL));
 	
-	if (c == '-' || c == ',')
-	{
-		for (; isdigit(line[i]); i++);
-		if (line[i] != c)
-			throw (std::invalid_argument(""));
-		i++;
-	}
-	else if (c == '|')
-	{
-		for (; isdigit(line[i]); i++);
-		if (!isspace(line[i]) || line[++i] != '|' || !isspace(line[++i]))
-			throw (std::invalid_argument(""));
-		i++;
-	}
+	for (; isdigit(line[i]); i++);
+	if (space)
+		for (; isspace(line[i]); i++);
+	if (line[i] != c)
+		throw (std::invalid_argument(NULL));
+	i++;
+	if (space)
+		for (; isspace(line[i]); i++);
 
 	return (value);
 }
@@ -53,23 +60,27 @@ static bool	toMap(char const *line, std::map<Date, float> &map)
 	double	value = 0;
 	char	*endPtr = NULL;
 
-	for (;!isdigit(line[i]); i++);
-	if (!line[i])
-		return (true);
-	
+	for (;isspace(line[i]); i++);
 	try
 	{
-		year = getValue(line, i, '-');
-		month = getValue(line, i, '-');	
-		day = getValue(line, i, ',');
+		year = getValue(line, i, '-', false);
+		month = getValue(line, i, '-', false);	
+		day = getValue(line, i, ',', false);
+
 		value = strtod(line + i, &endPtr);
+		if (line + i == endPtr)
+			throw (std::invalid_argument(NULL));
+
+		for (; isspace(*endPtr); endPtr++);
+		if (*endPtr != '\0')
+			throw (std::invalid_argument(NULL));
 	}
 	catch (std::exception &e)
 	{
 		std::cout << "Error: Syntax incorrect in .csv file!" << std::endl;
 		return (false);
 	}
-	
+
 	try
 	{
 		Date inmap(year, month, day);
@@ -98,21 +109,11 @@ bool BitcoinExchange::setData(std::string const &fileName)
 	}
 
 	for (std::string line; std::getline(infileDB, line);)
-		if (!toMap(line.c_str(), this->data))
+		if (digitInString(std::string(line)) && !toMap(line.c_str(), this->data))
 			correctFile = false;
 
 	infileDB.close();
 	return (correctFile);
-}
-
-static bool digitInString(std::string const &str)
-{
-	for (size_t i = 0 ; i < str.length(); i++)
-	{
-		if (isdigit(str[i]))
-			return (true);
-	}
-	return (false);
 }
 
 static bool	getInfo(char const *line, int &year, int &month, int &day, double &amount)
@@ -120,22 +121,23 @@ static bool	getInfo(char const *line, int &year, int &month, int &day, double &a
 	int		i = 0;
 	char	*endPtr = NULL;
 
-	int j;
-	for (j = 0; !isdigit(line[j]); j++)
-	if (!line[j])
-		return (true);
-	
+	for (;isspace(line[i]); i++);
 	try
 	{
-		year = getValue(line, i, '-');
-		month = getValue(line, i, '-');	
-		day = getValue(line, i, '|');
-		amount = strtod(line + i, &endPtr);
+		year = getValue(line, i, '-', false);
+		month = getValue(line, i, '-', false);	
+		day = getValue(line, i, '|', true);
 	}
 	catch (std::exception &e)
 	{
 		throw (Date::InvalidDateFormat());
 	}
+
+	amount = strtod(line + i, &endPtr);
+	if (line + i == endPtr)
+		throw (Date::InvalidDateFormat());
+
+	for (; isspace(*endPtr); endPtr++);
 
 	if (*endPtr != '\0')
 		throw (Date::InvalidDateFormat());
@@ -160,7 +162,7 @@ void BitcoinExchange::convertValue(std::string const &fileName)
 	for (std::string line; std::getline(infile, line);)
 	{
 		if (!digitInString(line))
-			std::getline(infile, line);
+			continue;
 		try
 		{
 			int		year = 0;

@@ -23,6 +23,8 @@
 #include <set>
 #include <list>
 
+typedef std::list<int>::iterator listIt;
+
 class PmergeMe
 {
     public:
@@ -38,12 +40,26 @@ class PmergeMe
         std::string         containerType;
         std::list<int>      list;
         std::vector<int>    vector;
+        void	            mergeList(listIt begin, listIt mid, listIt end);
+        void	            mergeSortList(listIt begin, listIt end);
+        void	            mergeVector(int begin, int mid, int end);
+        void		        mergeSortVector(int begin, int end);
 };
 
-template <typename S>
-std::ostream& operator<<(std::ostream& os, const std::vector<S>& vec)
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& c)
 {
-    for (size_t i = 0; i < vec.size(); i++)
-        os << vec[i] << " ";
+    typename std::vector<T>::const_iterator    it;
+    for (it = c.begin(); it != c.end(); it++)
+        os << *it << " ";
+    return (os);
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const std::list<T>& c)
+{
+    typename std::list<T>::const_iterator    it;
+    for (it = c.begin(); it != c.end(); it++)
+        os << *it << " ";
     return (os);
 }

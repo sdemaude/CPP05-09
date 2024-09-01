@@ -51,7 +51,7 @@ double	getTimeToSort(std::string const &container, std::vector<int> const &vec)
 	clock_gettime(CLOCK_REALTIME, &begin);
 
 	PmergeMe merge(container, vec);
-	//merge.sort();
+	merge.sort();
 
 	clock_gettime(CLOCK_REALTIME, &end);
 	long seconds = end.tv_sec - begin.tv_sec;

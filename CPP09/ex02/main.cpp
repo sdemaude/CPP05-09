@@ -19,9 +19,7 @@ bool containsDuplicates(std::vector<int> const &vec)
 	std::set<int>	seen;
 
 	for (std::vector<int>::const_iterator it = vec.begin(); it != vec.end(); ++it)
-	{
 		seen.insert(*it);
-	}
 
 	return false;
 }
@@ -45,27 +43,12 @@ void toVector(int size, char **argv, std::vector<int> &vec)
 	}
 }
 
-double	getTimeToSort(std::string const &container, std::vector<int> const &vec)
-{
-	struct timespec begin, end;
-	clock_gettime(CLOCK_REALTIME, &begin);
-
-	PmergeMe merge(container, vec);
-	merge.sort();
-
-	clock_gettime(CLOCK_REALTIME, &end);
-	long seconds = end.tv_sec - begin.tv_sec;
-    long nanoseconds = end.tv_nsec - begin.tv_nsec;
-
-    return (static_cast<double>(seconds + nanoseconds*1e-9));
-}
-
-void	displayInfos(int argc, int ETL, int ETV, std::vector<int> const &before)
+void	displayInfos(int argc, int etl, int etv, std::vector<int> const &before, std::vector<int> const &after)
 {
 	std::cout << "Before: " << before << std::endl;
-	std::cout << "After: " << before << std::endl;
-	std::cout << "Time to process a range of " << argc << " elements with std::list : " << ETL << " s" << std::endl;
-	std::cout << "Time to process a range of " << argc << " elements with std::vector : " << ETV << " s" << std::endl;
+	std::cout << "After: " << after << std::endl;
+	std::cout << "Time to process a range of " << argc << " elements with std::list   : " << etl << " ns" << std::endl;
+	std::cout << "Time to process a range of " << argc << " elements with std::vector : " << etv << " ns" << std::endl;
 }
 
 int	main(int argc, char **argv)
@@ -87,10 +70,13 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 
-	double	elapsedTimeList = getTimeToSort("list", vec);
-	double	elapsedTimeVect = getTimeToSort("vector", vec);
+	PmergeMe list("list", vec);
+	PmergeMe vector("vector", vec);
 
-	displayInfos(argc, elapsedTimeList, elapsedTimeVect, vec);
+	list.sort();
+	vector.sort();
+
+	displayInfos(argc, list.getElapsedTime(), vector.getElapsedTime(), vec, vector.getVector());
 	
 	return (0);
 }

@@ -33,17 +33,23 @@ class PmergeMe
         PmergeMe(PmergeMe const &other);
         ~PmergeMe();
 
-        void        sort();
-        PmergeMe    &operator=(PmergeMe const &other);
+        void				sort();
+        double				getElapsedTime();
+        std::vector<int>	&getVector();
+        PmergeMe			&operator=(PmergeMe const &other);
 
     private:
         std::string         containerType;
         std::list<int>      list;
         std::vector<int>    vector;
+        double	            elapsedTime;
         void	            mergeList(listIt begin, listIt mid, listIt end);
         void	            mergeSortList(listIt begin, listIt end);
+        void                insertionSortList();
         void	            mergeVector(int begin, int mid, int end);
         void		        mergeSortVector(int begin, int end);
+        int 	            insertionVector(int begin, int end, int value, std::vector<int> tmp);
+        void                insertionSortVector();
 };
 
 template <typename T>

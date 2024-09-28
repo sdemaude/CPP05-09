@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "RPN.hpp"
-#include <cctype>
-#include <cstdlib>
 
 RPN::RPN()
 {}
@@ -46,7 +44,7 @@ int	RPN::computeExpression(std::string const &line)
 	for (int i = 0; line[i]; i++)
 	{
 		if (isdigit(line[i]))
-			this->stack.push(line[i] - 48); 
+			this->stack.push(line[i] - '0'); 
 		else if (isSymbol(line[i]))
 		{
 			if (this->stack.size() < 2)

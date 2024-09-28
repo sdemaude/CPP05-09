@@ -111,11 +111,11 @@ std::ostream &operator<<(std::ostream &flux, Date const &date)
 {
 	std::string zero_mon;
 	std::string zero_day;
-	if (date.tm_mon - 9 < 0)
+	if (date.tm_mon < 9)
 		zero_mon = "0";
-	if (date.tm_mday - 10 < 0)
+	if (date.tm_mday < 10)
 		zero_day = "0";
 
 	flux << date.tm_year + 1900 << "-" << zero_mon << date.tm_mon + 1 << "-" << zero_day << date.tm_mday ;
-	return flux;
+	return (flux);
 }

@@ -21,7 +21,7 @@ bool containsDuplicates(std::vector<int> const &vec)
 	for (std::vector<int>::const_iterator it = vec.begin(); it != vec.end(); ++it)
 		seen.insert(*it);
 
-	return false;
+	return (false);
 }
 
 void toVector(int size, char **argv, std::vector<int> &vec)
@@ -43,7 +43,7 @@ void toVector(int size, char **argv, std::vector<int> &vec)
 	}
 }
 
-void	displayInfos(int argc, int etl, int etv, std::vector<int> const &before, std::vector<int> const &after)
+void	displayInfos(int argc, unsigned long etl, unsigned long etv, std::vector<int> const &before, std::vector<int> const &after)
 {
 	std::cout << "Before: " << before << std::endl;
 	std::cout << "After: " << after << std::endl;
@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
 	if (argc < 3)
 	{
 		std::cerr << "Error: Incorrect use of program, you should pass at least two numbers as arguments!" << std::endl;
-		return (1);
+		return (EXIT_FAILURE);
 	}
 
 	std::vector<int>	vec;
@@ -67,7 +67,7 @@ int	main(int argc, char **argv)
 	catch (std::exception &e)
 	{
 		std::cerr << e.what() << std::endl;
-		return (1);
+		return (EXIT_FAILURE);
 	}
 
 	PmergeMe list("list", vec);
@@ -78,5 +78,5 @@ int	main(int argc, char **argv)
 
 	displayInfos(argc, list.getElapsedTime(), vector.getElapsedTime(), vec, vector.getVector());
 	
-	return (0);
+	return (EXIT_SUCCESS);
 }

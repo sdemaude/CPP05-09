@@ -74,21 +74,13 @@ static bool	toMap(char const *line, std::map<Date, float> &map)
 		for (; isspace(*endPtr); endPtr++);
 		if (*endPtr != '\0')
 			throw (std::invalid_argument(NULL));
-	}
-	catch (std::exception &e)
-	{
-		std::cout << "Error: Syntax incorrect in .csv file!" << std::endl;
-		return (false);
-	}
 
-	try
-	{
 		Date inmap(year, month, day);
 		map[inmap] = value;
 	}
 	catch (std::exception &e)
 	{
-		std::cout << "Error: Incorrect input in .csv file!" << std::endl;
+		std::cerr << "Error: Incorrect input in .csv file!" << std::endl;
 		return (false);
 	}
 
@@ -104,7 +96,7 @@ bool BitcoinExchange::setData(std::string const &fileName)
 
 	if (!infileDB.is_open())
 	{
-		std::cout << "Could not open database file, check permissions" << std::endl;
+		std::cerr << "Could not open database file, check permissions" << std::endl;
 		return (false);
 	}
 
@@ -116,7 +108,7 @@ bool BitcoinExchange::setData(std::string const &fileName)
 	return (correctFile);
 }
 
-static bool	getInfo(char const *line, int &year, int &month, int &day, double &amount)
+static void	getInfo(char const *line, int &year, int &month, int &day, double &amount)
 {
 	int		i = 0;
 	char	*endPtr = NULL;
@@ -145,8 +137,6 @@ static bool	getInfo(char const *line, int &year, int &month, int &day, double &a
 		throw (BitcoinExchange::NegativeNumber());
 	if (amount > 1000)
 		throw (BitcoinExchange::TooLargeNumber());
-
-	return (true);
 }
 
 void BitcoinExchange::convertValue(std::string const &fileName)
@@ -155,7 +145,7 @@ void BitcoinExchange::convertValue(std::string const &fileName)
 	infile.open(fileName.c_str());
 	if (!infile.is_open())
 	{
-		std::cout << "Could not open input file, check permissions" << std::endl;
+		std::cerr << "Could not open input file, check permissions" << std::endl;
 		return;
 	}
 
@@ -176,11 +166,11 @@ void BitcoinExchange::convertValue(std::string const &fileName)
 		}
 		catch (Date::InvalidDateFormat &e)
 		{
-			std::cout <<  "Error : " << e.what() << line << std::endl;
+			std::cerr <<  "Error : " << e.what() << line << std::endl;
 		}
 		catch (std::exception &e)
 		{
-			std::cout <<  "Error : " << e.what() << std::endl;
+			std::cerr <<  "Error : " << e.what() << std::endl;
 		}
 	}
 

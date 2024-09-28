@@ -34,7 +34,7 @@ class PmergeMe
         ~PmergeMe();
 
         void				sort();
-        double				getElapsedTime();
+        unsigned long		getElapsedTime();
         std::vector<int>	&getVector();
         PmergeMe			&operator=(PmergeMe const &other);
 
@@ -42,7 +42,7 @@ class PmergeMe
         std::string         containerType;
         std::list<int>      list;
         std::vector<int>    vector;
-        double	            elapsedTime;
+        unsigned long       elapsedTime;
         void	            mergeList(listIt begin, listIt mid, listIt end);
         void	            mergeSortList(listIt begin, listIt end);
         void                insertionSortList();

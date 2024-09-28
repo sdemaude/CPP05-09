@@ -144,7 +144,7 @@ void	PmergeMe::mergeVector(int begin, int mid, int end)
 	std::copy(tmp.begin(), tmp.end(), this->vector.begin() + begin);
 }
 
-void		PmergeMe::mergeSortVector(int begin, int end)
+void	PmergeMe::mergeSortVector(int begin, int end)
 {
 	int	size = end - begin;
 	
@@ -205,7 +205,6 @@ void    PmergeMe::sort()
 			end--;
 		this->mergeSortList(this->list.begin(), end);
 		this->insertionSortList();
-		//std::cout << "list   : " << this->list << std::endl;
 	}
 	else if (containerType == "vector")
 	{
@@ -215,14 +214,12 @@ void    PmergeMe::sort()
 			end--;
 		this->mergeSortVector(0, end);
 		this->insertionSortVector();
-		//std::cout << "vector : " << this->vector << std::endl;
 	}
 	clock_gettime(CLOCK_REALTIME, &endTime);
-	long nanoseconds = endTime.tv_nsec - beginTime.tv_nsec;
-	elapsedTime =  (static_cast<double>(nanoseconds));
+	this->elapsedTime = endTime.tv_nsec - beginTime.tv_nsec;
 }
 
-double	PmergeMe::getElapsedTime()
+unsigned long	PmergeMe::getElapsedTime()
 {
 	return (this->elapsedTime);
 }

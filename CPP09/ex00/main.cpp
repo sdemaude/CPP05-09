@@ -18,13 +18,13 @@ int	main(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		std::cout << "One file expected as argument" << std::endl;
-		return (0);
+		std::cerr << "One file expected as argument" << std::endl;
+		return (EXIT_FAILURE);
 	}
 
 	BitcoinExchange converter;
 	if (!converter.setData(DATA_FILE))
-		return (1);
+		return (EXIT_FAILURE);
 	converter.convertValue(argv[1]);
-	return (0);
+	return (EXIT_SUCCESS);
 }
